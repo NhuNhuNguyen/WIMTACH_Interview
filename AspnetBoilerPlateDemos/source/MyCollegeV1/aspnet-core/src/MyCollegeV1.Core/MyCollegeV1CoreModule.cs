@@ -36,8 +36,6 @@ namespace MyCollegeV1
 
             Configuration.Settings.Providers.Add<AppSettingProvider>();
             
-            Configuration.Localization.Languages.Add(new LanguageInfo("fa", "فارسی", "famfamfam-flags ir"));
-            
             Configuration.Settings.SettingEncryptionConfiguration.DefaultPassPhrase = MyCollegeV1Consts.DefaultPassPhrase;
             SimpleStringCipher.DefaultPassPhrase = MyCollegeV1Consts.DefaultPassPhrase;
         }
