@@ -25,5 +25,9 @@ namespace MyCollegeV1.Models
 
         public bool IsActive { get; set; }
 
+        public int CollageID { get; set; }
+
+        public College College { get; set; }
+
     }
 }

@@ -1574,6 +1574,67 @@ namespace MyCollegeV1.Migrations
                     b.ToTable("AbpUsers");
                 });
 
+            modelBuilder.Entity("MyCollegeV1.Models.College", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Address")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ContactEmail")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<long?>("CreatorUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("DeleterUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("DeletionTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("text");
+
+                    b.Property<string>("GPSLatitude")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("IsSleep")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime?>("LastModificationTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<long?>("LastModifierUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Longitude")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("NguyenReasonDescription")
+                        .HasColumnType("boolean");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Colleges");
+                });
+
             modelBuilder.Entity("MyCollegeV1.Models.Student", b =>
                 {
                     b.Property<int>("Id")
@@ -1584,6 +1645,12 @@ namespace MyCollegeV1.Migrations
 
                     b.Property<string>("Address")
                         .HasColumnType("text");
+
+                    b.Property<int>("CollageID")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("CollegeId")
+                        .HasColumnType("integer");
 
                     b.Property<DateTime>("CreationTime")
                         .HasColumnType("timestamp with time zone");
@@ -1622,6 +1689,8 @@ namespace MyCollegeV1.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CollegeId");
 
                     b.ToTable("Students");
                 });
@@ -1908,6 +1977,15 @@ namespace MyCollegeV1.Migrations
                     b.Navigation("LastModifierUser");
                 });
 
+            modelBuilder.Entity("MyCollegeV1.Models.Student", b =>
+                {
+                    b.HasOne("MyCollegeV1.Models.College", "College")
+                        .WithMany("Student")
+                        .HasForeignKey("CollegeId");
+
+                    b.Navigation("College");
+                });
+
             modelBuilder.Entity("MyCollegeV1.MultiTenancy.Tenant", b =>
                 {
                     b.HasOne("MyCollegeV1.Authorization.Users.User", "CreatorUser")
@@ -2004,6 +2082,11 @@ namespace MyCollegeV1.Migrations
                     b.Navigation("Settings");
 
                     b.Navigation("Tokens");
+                });
+
+            modelBuilder.Entity("MyCollegeV1.Models.College", b =>
+                {
+                    b.Navigation("Student");
                 });
 #pragma warning restore 612, 618
         }
