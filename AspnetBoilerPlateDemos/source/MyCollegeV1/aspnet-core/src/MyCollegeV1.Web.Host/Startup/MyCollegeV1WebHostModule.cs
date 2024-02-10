@@ -23,5 +23,12 @@ namespace MyCollegeV1.Web.Host.Startup
         {
             IocManager.RegisterAssemblyByConvention(typeof(MyCollegeV1WebHostModule).GetAssembly());
         }
+
+        public override void PreInitialize()
+        {
+            System.AppContext.SetSwitch("Npgsql.DisableDateTimeInfinityConversions", true);
+            System.AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+            // https://www.npgsql.org/efcore/release-notes/6.0.html?tabs=annotations
+        }
     }
 }
